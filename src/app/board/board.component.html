@@ -1,0 +1,33 @@
+<div class="container">
+    <h1 class="text-center mt-2">YatzyTracker</h1>
+    
+    <div class="board d-flex">
+      <div class="fw-bold me-4">
+        <div>&nbsp;</div>
+        <ng-container *ngFor="let row of board">
+          <div>
+            {{row.name}}
+          </div>
+        </ng-container>
+      </div>
+    
+        <div class=" ms-4 me-4 fw-bold" *ngFor="let user of usersArr; let i = index">{{user.name}}<br>
+
+          <ng-container *ngFor="let column of userRows[i];">
+            <div class="fw-normal" *ngIf="!isEditable; else editMode" (click)="findField2(column)">{{column.value}}</div>
+            <ng-template #editMode>
+              <div class="fw-normal" *ngIf="isEditable && column.name === editRow && column.player === editPlayer; else displayMode">
+                <input [(ngModel)]="column.value" (ngModelChange)="onValueChange($event, column)">
+              </div>
+              <ng-template #displayMode>
+                <div class="fw-normal" (click)="findField2(column)">{{column.value}}</div>
+              </ng-template>
+            </ng-template>
+          </ng-container>
+
+
+
+        </div>
+        
+    
+  </div>
